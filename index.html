@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MVDP Single-Track Rosh Haayin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght[email protected];[email protected];[email protected];[email protected]&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -17,8 +17,8 @@
       min-height: 100vh;
       padding-bottom: 50px; 
       overflow-x: hidden;
-      position: relative; /* נדרש עבור רקע הפסאודו-אלמנט */
-      z-index: 1; /* כדי להבטיח שהתוכן מעל הרקע */
+      position: relative; 
+      z-index: 1; 
     }
 
     /* --- רקע תצלום אוויר (שכבה מתחת לכל) --- */
@@ -29,15 +29,14 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('map.png'); /* שם הקובץ שלך */
+        background-image: url('map.png'); 
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        /* שקיפות: 0.5 (50%) + מעבר לצבע שחור לניגודיות טובה */
-        opacity: 0.5; /* שקיפות של 50% */
-        filter: grayscale(100%) brightness(50%); /* הופך לשחור-לבן ומכהה מאוד */
-        z-index: -1; /* דוחף את הרקע מתחת לכל שאר האלמנטים */
+        opacity: 0.5; 
+        filter: grayscale(100%) brightness(50%); 
+        z-index: -1; 
     }
 
 
@@ -48,7 +47,6 @@
         top: 0;
         bottom: 0;
         width: 90px;
-        /* כתום עם פס לבן דק במרכז (47% עד 53%) */
         background: linear-gradient(to right, 
             #ff6600 0%, #ff6600 47%, 
             #ffffff 47%, #ffffff 53%, 
@@ -57,7 +55,7 @@
         box-shadow: 0 0 20px rgba(0,0,0,0.9);
     }
     body::after { right: 0; }
-    .container::before { /* נשתמש ב-container::before לגבול השמאלי כדי למנוע קונפליקט */
+    .container::before { 
         content: '';
         position: fixed;
         top: 0;
@@ -104,7 +102,7 @@
         margin: 20px auto 40px auto;
         max-width: 400px; 
         overflow: hidden; 
-        border-radius: 15px; /* עיגול קצוות */
+        border-radius: 15px; 
         box-shadow: 0 0 15px rgba(255, 102, 0, 0.4); 
     }
     
@@ -117,9 +115,9 @@
 
     /* --- תיבת טקסט (מעוצבת אחרונה) --- */
     .intro-box {
-      background: rgba(26, 26, 26, 0.95); /* הוספתי שקיפות קלה לרקע כדי שישבור את רקע המפה */
+      background: rgba(26, 26, 26, 0.95); 
       border-radius: 8px;
-      padding: 35px 100px; /* הגדלתי פדינג אופקי ל-100px - מרווח בטיחות גדול */
+      padding: 35px 100px; /* שמירת פדינג אופקי גדול לביטחון */
       padding-bottom: 50px; 
       text-align: center;
       max-width: 800px;
@@ -127,7 +125,7 @@
       position: relative;
       z-index: 10;
       
-      /* יצירת פינות חתוכות למראה טכנולוגי - העליתי את גובה הפינות */
+      /* יצירת פינות חתוכות למראה טכנולוגי */
       clip-path: polygon(0 20%, 100% 5%, 100% 85%, 0% 100%);
       
       /* מסגרת ניאון כתומה דקה */
@@ -174,7 +172,7 @@
     .download-button:hover {
         background-color: #cc5200;
         color: #ffffff;
-        transform: translateY(-2px) scale(1.02); /* אפקט קפיצה קל */
+        transform: translateY(-2px) scale(1.02); 
         box-shadow: 0 8px 20px rgba(255, 102, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     /* --- סוף כפתור הורדה --- */
@@ -192,12 +190,34 @@
 
     /* כרטיסים */
     .card {
-      background-color: rgba(22, 22, 22, 0.95); /* הוספתי שקיפות קלה גם לכרטיסים */
+      background-color: rgba(22, 22, 22, 0.95); 
       border-radius: 12px;
       padding: 20px;
       display: flex;
       flex-direction: column;
       border: 1px solid #333;
+    }
+    
+    /* יישור כותרות הכרטיסיות למרכז */
+    .card h2 {
+        text-align: center;
+        color: #ff6600;
+        font-size: 1.8em;
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-weight: 700;
+        /* משתמשים ב-flex כדי לרכז את האייקון והטקסט יחד */
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        gap: 8px; /* רווח בין האייקון לטקסט */
+    }
+    
+    /* סגנון מותאם אישית לתמונת האייקון */
+    .card h2 img.icon {
+        height: 30px; /* גודל האייקון */
+        width: auto;
+        margin: 0; 
     }
 
     /* כרטיס תמונה - ללא שוליים פנימיים וללא כותרת */
@@ -231,7 +251,7 @@
         padding-top: 40px;
         padding-bottom: 60px;
         margin-top: 50px;
-        background-color: rgba(13, 13, 13, 0.95); /* הוספתי שקיפות קלה */
+        background-color: rgba(13, 13, 13, 0.95); 
         position: relative;
         z-index: 10;
     }
@@ -301,8 +321,13 @@
 
     <div class="intro-box">
         <p style="font-size: 1.4em;"> 
-        ברוכים הבאים לסינגל על שם האחד והיחיד 
+        ברוכים הבאים
         </p>
+        
+        <p style="font-size: 1.4em; margin-top: 5px;">
+        לסינגל על שם האחד והיחיד
+        </p>
+
         <p style="margin-top: 10px;">
         <span style="font-size: 1.1em;"><strong>Mathieu van der Poel</strong></span>
         </p>
@@ -332,7 +357,7 @@
     <div class="content-grid">
       
       <div class="card">
-        <h2>Strava Segment 📊</h2>
+        <h2><img src="strava_icon.png" alt="Strava Icon" class="icon"> Strava Segment</h2>
         <iframe src="https://www.strava.com/segments/40540709/embed" allowfullscreen></iframe>
       </div>
 
@@ -345,7 +370,7 @@
       </div>
 
       <div class="card">
-        <h2>Video Preview 🎥</h2>
+        <h2><img src="youtube_icon.png" alt="YouTube Icon" class="icon"> Video Preview</h2>
         <iframe id="youtube-video" src="https://www.youtube.com/embed/INSERT_VIDEO_ID_HERE" allowfullscreen></iframe>
       </div>
 
