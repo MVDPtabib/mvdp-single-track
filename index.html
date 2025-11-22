@@ -122,7 +122,7 @@
       padding: 35px;
       text-align: center;
       max-width: 800px;
-      margin: 0 auto 70px auto;
+      margin: 0 auto 30px auto;
       position: relative;
       z-index: 10;
       
@@ -149,30 +149,35 @@
         font-weight: 700;
     }
     
-    /* --- כפתור הורדה --- */
+    /* --- כפתור הורדה - עיצוב רך וטבעי יותר --- */
     .download-button {
         display: inline-block;
         margin-top: 30px;
-        padding: 15px 30px;
+        padding: 12px 25px; /* גודל מופחת */
         background-color: #ff6600;
         color: #0d0d0d;
         font-weight: 900;
-        font-size: 1.4em;
+        font-size: 1.25em; 
         text-decoration: none;
-        border-radius: 6px;
         transition: background-color 0.3s, transform 0.1s;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.5);
-        border: 2px solid #ff6600;
+        
+        /* קצוות רכים ורדיוס גדול יותר */
+        border-radius: 20px; 
+        
+        /* צל רך יותר למראה "מרחף" */
+        box-shadow: 0 6px 15px rgba(255, 102, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+        border: 2px solid #ff6600; 
         letter-spacing: 0.5px;
     }
 
     .download-button:hover {
         background-color: #cc5200;
         color: #ffffff;
-        transform: translateY(-2px);
+        transform: translateY(-2px) scale(1.02); /* אפקט קפיצה קל */
+        box-shadow: 0 8px 20px rgba(255, 102, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     /* --- סוף כפתור הורדה --- */
-
+    
     /* --- גריד --- */
     .content-grid {
       display: grid;
@@ -268,10 +273,12 @@
             clip-path: none; 
             border: 1px solid rgba(255, 102, 0, 0.3);
             border-radius: 8px;
+            margin-bottom: 40px;
         }
         .download-button {
              font-size: 1.1em;
-             padding: 12px 25px;
+             padding: 10px 20px;
+             border-radius: 15px;
         }
     }
   </style>
@@ -306,19 +313,19 @@
             <strong>יופי של מסלול XCO לאימונים!</strong> ⏱️
         </p>
 
-        <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px;">
-            המסלול הוא חיבור של כמה סינגלים ותיקים ביער שלנו. עקבו אחרי הענפים והסימונים <strong>הכתומים 🟧</strong>.<br>
+        <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 20px;">
+            המסלול הוא חיבור של כמה סינגלים ותיקים ביער שלנו. עקבו אחרי הענפים והסימונים <strong>הכתומים 🟧</strong>.
         </p>
         
         <a href="MVDP Single-Track.gpx" download class="download-button">
             ⬇️ להורדת קובץ הניווט (GPX)
         </a>
-        
+
         <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 0;">
             תהנו! 🚵‍♂️
         </p>
     </div>
-
+    
     <div class="content-grid">
       
       <div class="card">
