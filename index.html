@@ -27,7 +27,6 @@
         background-attachment: fixed; opacity: 0.5; filter: grayscale(100%) brightness(50%); z-index: -1; 
     }
 
-    /* פסי צד */
     body::after, .container::before {
         content: ''; position: fixed; top: 0; bottom: 0; width: 90px;
         background: linear-gradient(to right, #ff6600 0%, #ff6600 47%, #ffffff 47%, #ffffff 53%, #ff6600 53%, #ff6600 100%);
@@ -51,10 +50,12 @@
         filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.8));
     }
 
+    /* עיצוב הלוגו עם קצוות רכים ומסגרת זוהרת כתומה */
     .banner-container {
         width: 100%;
         margin-bottom: 30px;
         text-align: center;
+        position: relative;
     }
     .banner-logo { 
         width: 100%; 
@@ -64,8 +65,12 @@
         display: block; 
         margin: 0 auto; 
         object-fit: contain;
-        mask-image: radial-gradient(circle, black 75%, transparent 100%);
-        -webkit-mask-image: radial-gradient(circle, black 75%, transparent 100%);
+        /* מיזוג קצוות רכים */
+        mask-image: radial-gradient(circle, black 80%, transparent 100%);
+        -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
+        /* מסגרת כתומה נעימה (Glow) */
+        filter: drop-shadow(0 0 20px rgba(255, 102, 0, 0.6));
+        border-radius: 50px; /* עוזר לריכוך הכללי */
     }
 
     .intro-box {
@@ -84,10 +89,7 @@
         text-decoration: none; border-radius: 20px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
     }
-    .download-button:hover { 
-        background-color: #ffffff; 
-        transform: scale(1.15); 
-    }
+    .download-button:hover { background-color: #ffffff; transform: scale(1.15); }
 
     .content-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -120,39 +122,15 @@
 
     .email-link { color: #ff6600; text-decoration: none; font-weight: 700; transition: 0.3s; }
 
-    /* --- התאמות למוביל (MOBILE FIXES) --- */
     @media (max-width: 900px) {
-        body { padding: 0; } /* ביטול שוליים רחבים */
-        
-        /* ביטול פסי הצד במוביל כדי לתת מרחב לתוכן */
+        body { padding: 0; }
         body::after, .container::before { display: none; }
-        
         .container { padding: 20px 15px; }
-
-        .main-title { 
-            font-size: 2.2em; 
-            letter-spacing: 2px; 
-            margin-top: 20px;
-        }
-
-        .banner-logo { max-height: 200px; width: 95%; }
-
-        .intro-box { 
-            padding: 40px 15px 30px; 
-            clip-path: none; /* ביטול האלכסון שגורם לבעיות במוביל */
-            margin-top: 10px;
-        }
-        .intro-box p { font-size: 1.1em; }
-        
-        .content-grid { 
-            grid-template-columns: 1fr; /* כרטיסייה אחת בשורה */
-            gap: 20px;
-        }
-
+        .main-title { font-size: 2.2em; letter-spacing: 2px; margin-top: 20px; }
+        .banner-logo { max-height: 220px; width: 95%; filter: drop-shadow(0 0 10px rgba(255, 102, 0, 0.5)); }
+        .intro-box { padding: 40px 15px 30px; clip-path: none; margin-top: 10px; }
+        .content-grid { grid-template-columns: 1fr; gap: 20px; }
         .card { height: 400px; padding: 15px; }
-        
-        /* התאמת טקסט האימייל למסך קטן */
-        .email-link { font-size: 0.9em; line-height: 1.4; display: block; }
     }
   </style>
 </head>
