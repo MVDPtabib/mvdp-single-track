@@ -4,14 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MVDP Single-Track Rosh Haayin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@700&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
+    :root {
+        --primary-orange: #ff6600;
+        --glass-bg: rgba(20, 20, 20, 0.7);
+    }
+
     body {
       margin: 0;
       padding: 0 120px; 
-      font-family: 'Roboto', sans-serif;
-      background-color: #0d0d0d;
-      color: #e0e0e0;
+      font-family: 'Heebo', sans-serif;
+      background-color: #050505;
+      color: #f0f0f0;
       min-height: 100vh;
       padding-bottom: 50px; 
       overflow-x: hidden;
@@ -19,101 +24,116 @@
       z-index: 1; 
     }
 
+    /* רקע המפה המשודרג */
     body::before {
         content: '';
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background-image: url('map.png'); 
-        background-size: cover; background-position: center; background-repeat: no-repeat;
-        background-attachment: fixed; opacity: 0.5; filter: grayscale(100%) brightness(50%); z-index: -1; 
+        background-size: cover; background-position: center;
+        opacity: 0.3; filter: grayscale(100%) brightness(40%); z-index: -1; 
     }
 
+    /* פסי הצד המפורסמים */
     body::after, .container::before {
-        content: ''; position: fixed; top: 0; bottom: 0; width: 90px;
-        background: linear-gradient(to right, #ff6600 0%, #ff6600 47%, #ffffff 47%, #ffffff 53%, #ff6600 53%, #ff6600 100%);
-        z-index: 100; box-shadow: 0 0 20px rgba(0,0,0,0.9);
+        content: ''; position: fixed; top: 0; bottom: 0; width: 80px;
+        background: linear-gradient(to right, var(--primary-orange) 0%, var(--primary-orange) 47%, #ffffff 47%, #ffffff 53%, var(--primary-orange) 53%, var(--primary-orange) 100%);
+        z-index: 100; box-shadow: 0 0 30px rgba(0,0,0,0.8);
     }
     body::after { right: 0; }
     .container::before { left: 0; position: fixed; top:0; bottom:0; z-index:100; content:'';}
 
-    .container { max-width: 1200px; margin: auto; padding: 50px 20px; }
+    .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
 
+    /* כותרת Pro בסגנון ספורט אקסטרים */
     .main-title {
-        font-size: 5em; font-weight: 900; text-align: center; text-transform: uppercase;
-        margin-bottom: 10px; background: linear-gradient(45deg, #ff6600, #ffffff);
+        font-family: 'Teko', sans-serif;
+        font-size: 8em; font-weight: 700; text-align: center; text-transform: uppercase;
+        margin: 20px 0 10px 0; line-height: 0.8; font-style: italic;
+        background: linear-gradient(to bottom, #ffffff 30%, var(--primary-orange) 100%);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        letter-spacing: 5px; filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.8));
+        filter: drop-shadow(4px 4px 0px rgba(0,0,0,1));
+        letter-spacing: -2px;
     }
 
-    .banner-container { width: 100%; margin-bottom: 30px; text-align: center; position: relative; }
+    .banner-container { width: 100%; margin-bottom: 40px; text-align: center; }
     .banner-logo { 
-        width: 100%; max-width: 1000px; height: auto; max-height: 380px; 
-        display: block; margin: 0 auto; object-fit: contain;
-        mask-image: radial-gradient(circle, black 80%, transparent 100%);
-        -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
-        filter: drop-shadow(0 0 20px rgba(255, 102, 0, 0.6));
+        width: 100%; max-width: 900px; height: auto; 
+        mask-image: radial-gradient(circle, black 75%, transparent 100%);
+        -webkit-mask-image: radial-gradient(circle, black 75%, transparent 100%);
+        filter: drop-shadow(0 0 25px rgba(255, 102, 0, 0.5));
+        transition: 0.5s ease;
     }
 
+    /* תיבת פתיחה Glassmorphism */
     .intro-box {
-      background: rgba(26, 26, 26, 0.95); border-radius: 8px;
-      padding: 40px 100px 50px; text-align: center; max-width: 800px;
-      margin: 0 auto 40px auto; position: relative; z-index: 10; padding-top: 90px; 
-      clip-path: polygon(0 20%, 100% 5%, 100% 85%, 0% 100%);
-      box-shadow: 0 0 15px rgba(255, 102, 0, 0.4); border: 1px solid rgba(255, 102, 0, 0.3);
+      background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      border-radius: 15px; padding: 50px 80px; text-align: center; max-width: 800px;
+      margin: 0 auto 50px auto; position: relative; z-index: 10;
+      border: 1px solid rgba(255, 102, 0, 0.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     }
-    .intro-box p { font-size: 1.5em; font-weight: 300; line-height: 1.8; margin: 0; color: #cccccc; }
-    .intro-box strong { color: #ff6600; font-weight: 700; }
+    .intro-box p { font-size: 1.4em; font-weight: 300; line-height: 1.6; color: #ddd; }
+    .intro-box strong { color: var(--primary-orange); font-weight: 700; }
 
+    /* כפתור עם אנימציית פעימה */
     .download-button {
-        display: inline-block; margin-top: 30px; padding: 12px 25px; 
-        background-color: #ff6600; color: #0d0d0d; font-weight: 900;
-        text-decoration: none; border-radius: 20px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
+        display: inline-block; margin-top: 35px; padding: 15px 35px; 
+        background-color: var(--primary-orange); color: #000; font-weight: 900;
+        text-decoration: none; border-radius: 50px; font-size: 1.2em;
+        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 20px rgba(255, 102, 0, 0.3);
+        animation: pulse 2s infinite;
     }
-    .download-button:hover { background-color: #ffffff; transform: scale(1.15); }
+    @keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 102, 0, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
+    }
+    .download-button:hover { background-color: #fff; transform: scale(1.1); animation: none; }
 
     .content-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 35px; margin-bottom: 80px; position: relative; z-index: 10;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 30px; margin-bottom: 80px; position: relative; z-index: 10;
     }
 
+    /* כרטיסיות משודרגות */
     .card { 
-        background-color: rgba(22, 22, 22, 0.95); border-radius: 12px; padding: 25px; 
-        border: 1px solid #333; height: 450px; box-sizing: border-box; display: flex; flex-direction: column;
+        background: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); 
+        height: 450px; box-sizing: border-box; display: flex; flex-direction: column;
+        transition: 0.4s ease;
+    }
+    .card:hover { 
+        transform: translateY(-10px); 
+        border-color: var(--primary-orange);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.6);
     }
 
-    .card-marker {
-        display: flex; flex-direction: row !important; align-items: center; justify-content: space-around;
-        height: auto !important; padding: 20px; background: rgba(30, 30, 30, 0.95);
-    }
-    .card-marker p { margin: 0; font-size: 1.2em; font-weight: 700; }
-    .card-marker img { height: 65px; width: auto; object-fit: contain; }
+    .card-marker { height: auto !important; padding: 30px; flex-direction: row !important; align-items: center; justify-content: space-around; }
+    .card-marker img { height: 80px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
 
     .header-with-icon { 
         display: flex; align-items: center; justify-content: center; gap: 15px; 
-        margin-bottom: 20px; text-decoration: none; transition: 0.3s;
+        margin-bottom: 20px; text-decoration: none; 
     }
-    .header-with-icon:hover { opacity: 0.8; transform: scale(1.02); }
-    .round-icon { width: 45px; height: 45px; border-radius: 50%; background-color: #fff; padding: 5px; object-fit: contain; }
+    .round-icon { width: 45px; height: 45px; border-radius: 50%; background: #fff; padding: 5px; }
 
-    .gallery-card { padding: 0; overflow: hidden; border: 2px solid #333; cursor: pointer; }
+    .card h2 { font-family: 'Teko', sans-serif; font-size: 2.2em; color: var(--primary-orange); text-transform: uppercase; margin: 0; }
+    
+    .gallery-card { padding: 0; overflow: hidden; }
     .slideshow { width: 100%; height: 100%; position: relative; }
-    .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out, transform 0.8s ease; }
+    .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s ease-in-out; }
     .slide-img.active { opacity: 1; }
 
-    .card h2 { color: #ff6600; text-align: center; margin: 0; font-weight: 900; }
-    iframe { width: 100%; flex-grow: 1; border-radius: 8px; border: none; }
-
-    .email-link { color: #ff6600; text-decoration: none; font-weight: 700; transition: 0.3s; }
+    iframe { width: 100%; flex-grow: 1; border-radius: 10px; border: none; background: #111; }
 
     @media (max-width: 900px) {
         body { padding: 0; }
         body::after, .container::before { display: none; }
-        .container { padding: 20px 15px; }
-        .main-title { font-size: 2.2em; letter-spacing: 2px; margin-top: 20px; }
-        .banner-logo { max-height: 220px; width: 95%; }
-        .intro-box { padding: 40px 15px 30px; clip-path: none; margin-top: 10px; }
-        .content-grid { grid-template-columns: 1fr; gap: 20px; }
-        .card { height: 400px; padding: 15px; }
+        .main-title { font-size: 4em; letter-spacing: -1px; }
+        .intro-box { padding: 40px 20px; margin: 0 15px 40px; }
+        .content-grid { grid-template-columns: 1fr; padding: 0 15px; }
+        .card { height: 400px; }
     }
   </style>
 </head>
@@ -127,36 +147,38 @@
     </div>
 
     <div class="intro-box">
-        <p style="font-size: 1.3em;">ברוכים הבאים לסינגל על שם האחד והיחיד</p>
-        <p style="margin-top: 5px;"><span style="font-size: 1.1em;"><strong>Mathieu van der Poel</strong></span></p>
-        <p style="font-size: 1.2em; font-weight: 400; color: #fff; line-height: 1.4; margin-top: 25px;">
-            זהו מסלול <strong>XC מהיר</strong> ומדויק.<br>
-            הקפה אחת באורך <strong>3.1 ק"מ</strong>, עם טיפוס מצטבר של <strong>95 מטר</strong>.
+        <p style="font-size: 1.5em; font-weight: 700; margin-bottom: 10px;">ברוכים הבאים לסינגל על שם האלוף</p>
+        <p style="font-family: 'Teko', sans-serif; font-size: 3em; color: #fff; line-height: 1;">MATHIEU VAN DER POEL</p>
+        
+        <p style="margin-top: 30px;">
+            מסלול <strong>XC מהיר</strong>, עצבני ומדויק.<br>
+            הקפה אחת: <strong>3.1 ק"מ</strong> | טיפוס: <strong>95 מטר</strong>.
         </p>
-        <p style="font-size: 1.3em; font-weight: 700; color: #ff6600; margin-top: 15px;">
-            <strong>יופי של מסלול XCO לאימונים!</strong> ⏱️
-        </p>
-        <p style="font-size: 1.1em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 20px;">
-            עקבו אחרי <strong>החצים הכחולים 🟦</strong>.
-        </p>
-        <a href="MVDP Single-Track.gpx" download class="download-button">⬇️ הורדת קובץ GPX</a>
-        <p style="font-size: 1.1em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 0;">תהנו! 🚵‍♂️</p>
+        
+        <a href="MVDP Single-Track.gpx" download class="download-button">⬇️ הורדת קובץ GPX למכשיר</a>
+        <p style="font-size: 1.1em; color:#888; margin-top: 25px;">עקבו אחרי החצים הכחולים 🟦 ותנו בראש!</p>
     </div>
     
     <div class="content-grid">
       <div class="card card-marker">
-        <p>השביל מסומן על ידי <br> <strong>חצים כחולים</strong></p>
+        <div>
+            <h2>סימון חצים</h2>
+            <p>חפשו את הקידוד <strong>הכחול</strong></p>
+        </div>
         <img src="bluearrow.png" alt="חץ כחול">
       </div>
 
       <div class="card card-marker">
-        <p>וגם על ידי <br> <strong>ענפים</strong></p>
-        <img src="Branch_marking.png" alt="סימון ענפים" style="border-radius: 8px;">
+        <div>
+            <h2>סימון טבעי</h2>
+            <p>בנייה בסגנון <strong>Old School</strong></p>
+        </div>
+        <img src="Branch_marking.png" alt="סימון ענפים" style="border-radius: 10px;">
       </div>
 
       <div class="card">
         <a href="https://www.strava.com/segments/40662774" target="_blank" class="header-with-icon">
-            <img src="strava_icon.png" class="round-icon" alt="Strava Icon">
+            <img src="strava_icon.png" class="round-icon" alt="Strava">
             <h2>Strava Segment</h2>
         </a>
         <iframe src="https://www.strava.com/segments/40662774/embed"></iframe>
@@ -181,24 +203,20 @@
 
       <div class="card">
         <a href="https://www.youtube.com/watch?v=JHL76AN1cAM" target="_blank" class="header-with-icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" class="round-icon" alt="YouTube Icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" class="round-icon" alt="YouTube">
             <h2>Video Preview</h2>
         </a>
         <iframe src="https://www.youtube.com/embed/JHL76AN1cAM" allowfullscreen></iframe>
       </div>
     </div>
 
-    <div style="text-align: center; opacity: 0.9; padding: 25px; border-top: 1px solid #ff6600; margin-top: 30px; background: rgba(20, 20, 20, 0.8); border-radius: 12px;">
-        <p style="margin-bottom: 15px;">
-            <a href="mailto:van.der0nothing@gmail.com" style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-decoration: none;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Email" style="height: 25px;">
-                <span class="email-link">רכבתם בסינגל? יש לכם הערות? שלחו מייל ל-van.der0nothing@gmail.com</span>
-            </a>
-        </p>
-        <p style="font-size: 1.1em; color: #ff6600; font-weight: 700;">🌳 רוכבים, נהנים ושומרים על היער נקי</p>
-        <p style="font-size: 0.8em; color: #888; border-top: 1px solid #333; padding-top: 15px; line-height: 1.4;">
-            <strong>הבהרה משפטית:</strong> הרכיבה במסלול הינה באחריות הרוכב/ת בלבד. 
-        </p>
+    <div style="text-align: center; padding: 40px; border-top: 1px solid var(--primary-orange); background: rgba(0,0,0,0.6); border-radius: 20px;">
+        <a href="mailto:van.der0nothing@gmail.com" style="text-decoration: none; color: inherit;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Email" style="height: 30px; margin-bottom: 10px;">
+            <p style="color: var(--primary-orange); font-weight: 700; font-size: 1.2em; margin: 5px 0;">van.der0nothing@gmail.com</p>
+        </a>
+        <p style="font-size: 1.1em; letter-spacing: 1px;">🌳 רוכבים, נהנים ושומרים על היער נקי</p>
+        <p style="font-size: 0.8em; color: #666; margin-top: 20px;">הרכיבה במסלול הינה באחריות הרוכב/ת בלבד.</p>
     </div>
   </div>
 
