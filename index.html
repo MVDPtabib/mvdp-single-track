@@ -71,7 +71,7 @@
         max-width: 800px;
         margin: 0 auto;
         line-height: 1.6;
-        font-size: 1.25rem;
+        font-size: 1.4rem;
     }
 
     .gallery-large { grid-column: 5 / 13; height: 600px; background: #151515; overflow: hidden; position: relative; }
@@ -92,8 +92,9 @@
     .youtube-container { grid-column: 1 / 9; height: 550px; background: #000; border-radius: 10px; overflow: hidden; }
     .text-next-to-video { grid-column: 10 / 13; align-self: center; }
 
-    .navigation-box { grid-column: 1 / 5; display: flex; flex-direction: column; justify-content: center; }
-    .strava-box { grid-column: 6 / 13; height: 450px; }
+    /* Fix Alignment for Navigation vs Strava */
+    .navigation-box { grid-column: 1 / 5; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 40px; }
+    .strava-box { grid-column: 6 / 13; height: 450px; display: flex; flex-direction: column; justify-content: flex-start; }
 
     .download-btn {
         display: inline-block; margin-top: 30px; padding: 12px 30px; border: 1px solid var(--accent-orange);
@@ -114,7 +115,7 @@
         #movie1 { opacity: 0.25 !important; }
         #movie2 { display: none !important; }
         .bastion-layout { display: flex; flex-direction: column; padding: 40px 20px; }
-        .grid-item { width: 100%; margin-bottom: 60px; }
+        .grid-item { width: 100%; margin-bottom: 60px; padding-top: 40px !important; }
         .gallery-large, .youtube-container, .strava-box { height: 300px; }
     }
   </style>
@@ -144,8 +145,7 @@
           <span class="label">Introduction</span>
           <h2 class="section-heading" style="font-size: 4rem;">Welcome</h2>
           <p class="description-text">
-            A premier trail named after the world champion <strong>MATHIEU VAN DER POEL</strong>.<br>
-            Expertly crafted and located in the scenic <strong>Rosh HaAyin Forest</strong>.
+            A track named after <span style="color:var(--accent-orange); font-weight:700;">Mathieu van der Poel</span>, <br>located in the <span style="color:var(--accent-orange); font-weight:700;">Rosh HaAyin forest</span>.
           </p>
           <a href="MVDP Single-Track.gpx" download class="download-btn">Download GPX Data</a>
       </section>
@@ -220,7 +220,6 @@
           </a>
           <p style="font-size: 1.1rem; font-weight: 300; margin: 0;">van.der0nothing@gmail.com</p>
           <p style="color: var(--accent-orange); margin-top: 40px; font-weight: 700;">RIDE, ENJOY, AND KEEP THE FOREST CLEAN.</p>
-          
           <div class="legal-disclaimer">
               Riding the trail is at the rider's own responsibility. The creators of the track or the website are not responsible for any damage or injury. Please wear a helmet and ride within your skill level.
           </div>
