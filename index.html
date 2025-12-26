@@ -15,8 +15,10 @@
         --border-thin: rgba(255, 255, 255, 0.1);
     }
 
-    /* Custom Cursor Reset */
-    * { box-sizing: border-box; cursor: none !important; }
+    /* Desktop Cursor Logic */
+    @media (min-width: 901px) {
+        * { cursor: none !important; }
+    }
 
     body {
       margin: 0; padding: 0;
@@ -27,7 +29,7 @@
       line-height: 1.6;
     }
 
-    /* --- FOY CURSOR EFFECT --- */
+    /* --- FOY CURSOR EFFECT (Desktop Only) --- */
     .cursor-dot {
         width: 8px; height: 8px; background-color: var(--accent-orange);
         position: fixed; top: 0; left: 0; border-radius: 50%;
@@ -40,7 +42,7 @@
         opacity: 0.5;
     }
 
-    /* --- HERO SCROLL --- */
+    /* --- HERO SCROLL SECTION --- */
     .hero-scroll-container { height: 250vh; position: relative; }
     .sticky-frame {
         position: sticky; top: 0; height: 100vh;
@@ -63,7 +65,7 @@
     #movie2 { left: 0; transform: translateX(-100%); }
     .reveal-active #movie1, .reveal-active #movie2 { transform: translateX(0); }
 
-    /* --- BASTION GRID LAYOUT --- */
+    /* --- CONTENT LAYOUT --- */
     .bastion-layout {
         max-width: 1400px; margin: 0 auto; padding: 100px 40px;
         display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
@@ -76,6 +78,7 @@
 
     .intro-summary { grid-column: 1 / 13; text-align: center; padding: 100px 0; border-bottom: 1px solid var(--border-thin); margin-bottom: 80px; }
 
+    /* Gallery */
     .gallery-large { grid-column: 5 / 13; height: 600px; background: #151515; overflow: hidden; position: relative; }
     .text-next-to-gallery { grid-column: 1 / 4; align-self: center; }
     .slideshow-container { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
@@ -83,18 +86,19 @@
     .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s; }
     .slide.active { opacity: 1; }
 
+    /* YouTube & Strava */
     .youtube-container { grid-column: 1 / 9; height: 550px; background: #000; }
     .text-next-to-video { grid-column: 10 / 13; align-self: center; }
-
-    .navigation-box { grid-column: 1 / 5; display: flex; flex-direction: column; justify-content: center; }
-    .nav-icon-wrapper {
-        width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin-bottom: 25px;
-        box-shadow: 0 0 25px rgba(0, 102, 255, 0.4); border: 2px solid rgba(255, 255, 255, 0.1);
-    }
-    .nav-icon-img { width: 100%; height: 100%; object-fit: cover; }
-
+    
     .strava-box { grid-column: 6 / 13; height: 450px; }
-    .round-social-icon { width: 50px; height: 50px; margin-bottom: 15px; transition: transform 0.3s; }
+
+    /* Strava Icon with Orange Border */
+    .round-social-icon { 
+        width: 50px; height: 50px; margin-bottom: 15px; transition: 0.3s;
+        border: 2px solid var(--accent-orange); border-radius: 50%; 
+        background-color: white; object-fit: contain; padding: 5px; overflow: hidden;
+    }
+    .round-social-icon:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--accent-orange); }
 
     .download-btn {
         display: inline-block; margin-top: 30px; padding: 12px 30px; border: 1px solid var(--accent-orange);
@@ -105,14 +109,20 @@
     iframe { width: 100%; height: 100%; border: none; }
 
     footer { grid-column: 1 / 13; border-top: 1px solid var(--border-thin); padding: 100px 0; text-align: center; }
-    .gmail-icon { width: 40px; margin-bottom: 20px; transition: 0.3s; }
     .legal-disclaimer { color: #444; font-size: 0.75rem; margin-top: 30px; max-width: 600px; margin: 30px auto 0; }
 
+    /* --- MOBILE OPTIMIZATION --- */
     @media (max-width: 900px) {
-        .bastion-layout { display: block; }
-        .gallery-large, .youtube-container, .strava-box { height: 350px; width: 100%; margin-bottom: 40px; }
         .cursor-dot, .cursor-outline { display: none; }
         * { cursor: auto !important; }
+        .hero-title { font-size: 16vw; }
+        .location-sub { font-size: 5vw; }
+        .scroll-video { width: 100vw; opacity: 0.3; }
+        .bastion-layout { display: flex; flex-direction: column; padding: 40px 20px; }
+        .grid-item { width: 100%; margin-bottom: 60px; padding-top: 20px; }
+        .gallery-large, .youtube-container, .strava-box { height: 300px; order: 2; }
+        .text-next-to-gallery, .text-next-to-video { order: 1; }
+        .intro-summary h2 { font-size: 3rem !important; }
     }
   </style>
 </head>
@@ -125,12 +135,12 @@
       <div class="sticky-frame">
           <h1 class="hero-title">MVDP<br>Track<span class="location-sub">Rosh HaAyin</span></h1>
           
-          <video id="movie1" class="scroll-video" autoplay muted loop playsinline>
-              <source src="https://drive.google.com/uc?export=download&id=1drpvgARNDTNTTyrEihZEHSQYXv1pURmU" type="video/mp4">
+          <video id="movie1" class="scroll-video" autoplay muted loop playsinline preload="auto">
+              <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766765976/Movie1_-_Trim_rugrpu.mp4" type="video/mp4">
           </video>
           
-          <video id="movie2" class="scroll-video" autoplay muted loop playsinline>
-              <source src="https://drive.google.com/uc?export=download&id=1wpgRCzUxio0I3yez5XzsIdGGLnmZvO-S" type="video/mp4">
+          <video id="movie2" class="scroll-video" autoplay muted loop playsinline preload="auto">
+              <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766766013/Movie_2_-_Trim_-_Trim_-_Trim_z0kmot.mp4" type="video/mp4">
           </video>
       </div>
   </div>
@@ -140,9 +150,7 @@
       <section class="intro-summary">
           <span class="label">Introduction</span>
           <h2 class="section-heading" style="font-size: 4rem; margin-bottom: 10px;">Welcome</h2>
-          <p class="description-text" style="max-width: 600px; margin: 0 auto; color: #fff; letter-spacing: 1px;">
-              Track named after the world champion MATHIEU VAN DER POEL.
-          </p>
+          <p class="description-text">Track named after the world champion MATHIEU VAN DER POEL.</p>
           <a href="MVDP Single-Track.gpx" download class="download-btn">Download GPX</a>
       </section>
 
@@ -166,19 +174,7 @@
           </a>
           <span class="label">Visual Journey</span>
           <h2 class="section-heading">Watch the Flow</h2>
-          <p class="description-text">Experience the full lap and see how the flow connects every turn.</p>
-      </div>
-
-      <div class="grid-item navigation-box">
-          <div class="nav-icon-wrapper">
-              <img src="bluearrow.png" alt="Blue Arrow" class="nav-icon-img">
-          </div>
-          <span class="label">Navigation</span>
-          <h2 class="section-heading" style="font-size: 2rem;">Follow the Path</h2>
-          <p class="description-text">
-              Always follow the <strong>blue arrows</strong> to stay on the track. 
-              Look for additional <strong>blue markings on trees and rocks</strong> to ensure you are on the right path.
-          </p>
+          <p class="description-text">Experience the full lap and see how the flow connects.</p>
       </div>
 
       <div class="grid-item strava-box">
@@ -186,21 +182,18 @@
             <img src="strava_icon.png" class="round-social-icon" alt="Strava">
           </a>
           <span class="label">Performance Data</span>
-          <div style="height: 100%; border: 1px solid var(--border-thin);">
+          <div style="height: 100%; border: 1px solid var(--border-thin); border-radius: 15px; overflow: hidden;">
               <iframe src="https://www.strava.com/segments/40662774/embed"></iframe>
           </div>
       </div>
 
       <footer>
-          <a href="mailto:van.der0nothing@gmail.com">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail" class="gmail-icon">
-          </a>
           <p style="font-size: 1.2rem; font-weight: 300; margin: 0;">van.der0nothing@gmail.com</p>
           <p style="color: var(--accent-orange); font-size: 1.1rem; letter-spacing: 1px; margin-top: 50px;">
               RIDE, ENJOY, AND KEEP THE FOREST CLEAN.
           </p>
           <div class="legal-disclaimer">
-              Riding the trail is at the rider's own responsibility. Ride safely and according to your skill level.
+              Riding the trail is at the rider's own responsibility. Ride safely.
           </div>
       </footer>
   </main>
@@ -210,37 +203,25 @@
     const dot = document.querySelector('.cursor-dot');
     const outline = document.querySelector('.cursor-outline');
 
-    window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
-        dot.style.transform = `translate(${posX - 4}px, ${posY - 4}px)`;
-        outline.animate({
-            transform: `translate(${posX - 20}px, ${posY - 20}px)`
-        }, { duration: 500, fill: "forwards" });
-    });
-
-    const links = document.querySelectorAll('a, button, iframe, .gallery-large');
-    links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            outline.style.transform += ' scale(1.5)';
-            outline.style.backgroundColor = 'rgba(255, 102, 0, 0.1)';
+    if (window.innerWidth > 900) {
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            dot.style.transform = `translate(${posX - 4}px, ${posY - 4}px)`;
+            outline.animate({
+                transform: `translate(${posX - 20}px, ${posY - 20}px)`
+            }, { duration: 500, fill: "forwards" });
         });
-        link.addEventListener('mouseleave', () => {
-            outline.style.transform = outline.style.transform.replace(' scale(1.5)', '');
-            outline.style.backgroundColor = 'transparent';
-        });
-    });
+    }
 
-    // Scroll Reveal
+    // Scroll Logic
     window.addEventListener('scroll', () => {
         const scrollTrigger = document.getElementById('scrollTrigger');
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        if (scrollPosition > windowHeight * 0.1) scrollTrigger.classList.add('reveal-active');
+        if (window.scrollY > 100) scrollTrigger.classList.add('reveal-active');
         else scrollTrigger.classList.remove('reveal-active');
     });
 
-    // Gallery Slideshow
+    // Slideshow Logic
     function runSlideshow() {
         const slides = document.querySelectorAll('#mainGallery .slide');
         let current = 0;
