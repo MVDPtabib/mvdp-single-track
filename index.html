@@ -46,10 +46,7 @@
         object-fit: cover; z-index: 5; transition: opacity 0.4s ease-out; opacity: 0;
     }
     
-    /* סרטון 1 - ימין */
     #movie1 { right: 0; }
-    
-    /* סרטון 2 - שמאל עם הכנה לכניסה */
     #movie2 { left: 0; transform: translateX(-100%); transition: opacity 0.4s, transform 0.1s linear; }
 
     /* --- CONTENT GRID --- */
@@ -63,7 +60,19 @@
     .description-text { font-size: 1.1rem; color: var(--text-dim); font-weight: 300; }
     .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 120px; }
 
-    .intro-summary { grid-column: 1 / 13; text-align: center; padding: 100px 0; border-bottom: 1px solid var(--border-thin); margin-bottom: 80px; }
+    .intro-summary { 
+        grid-column: 1 / 13; 
+        text-align: center; 
+        padding: 120px 0; 
+        border-bottom: 1px solid var(--border-thin); 
+        margin-bottom: 80px; 
+    }
+    .intro-summary .description-text {
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+        font-size: 1.25rem;
+    }
 
     .gallery-large { grid-column: 5 / 13; height: 600px; background: #151515; overflow: hidden; position: relative; }
     .text-next-to-gallery { grid-column: 1 / 4; align-self: center; }
@@ -71,7 +80,7 @@
     .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s; }
     .slide.active { opacity: 1; }
 
-    /* --- BRAND ICONS (כולל כעת גם את הג'ימייל) --- */
+    /* --- BRAND ICONS --- */
     .round-brand-icon { 
         width: 60px; height: 60px; border: 2px solid var(--accent-orange); 
         border-radius: 50%; background: white; padding: 8px; 
@@ -96,7 +105,6 @@
 
     /* --- FOOTER --- */
     footer { grid-column: 1 / 13; border-top: 1px solid var(--border-thin); padding: 100px 0; text-align: center; }
-    /* הוסר הסגנון הישן של .gmail-icon כי הוא הוחלף */
     .legal-disclaimer { color: #555; font-size: 0.75rem; margin-top: 40px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.5; }
 
     @media (max-width: 900px) {
@@ -133,8 +141,11 @@
       <section class="intro-summary">
           <span class="label">Introduction</span>
           <h2 class="section-heading" style="font-size: 4rem;">Welcome</h2>
-          <p class="description-text">Track named after the world champion MATHIEU VAN DER POEL.</p>
-          <a href="MVDP Single-Track.gpx" download class="download-btn">Download GPX</a>
+          <p class="description-text">
+            A premier trail named after the world champion <strong>MATHIEU VAN DER POEL</strong>.<br>
+            Expertly crafted and located in the scenic <strong>Rosh HaAyin Forest</strong>.
+          </p>
+          <a href="MVDP Single-Track.gpx" download class="download-btn">Download GPX Data</a>
       </section>
 
       <div class="grid-item text-next-to-gallery">
@@ -203,7 +214,7 @@
   </main>
 
   <script>
-    // Cursor
+    // Cursor logic
     const dot = document.querySelector('.cursor-dot');
     const outline = document.querySelector('.cursor-outline');
     if (window.innerWidth > 900) {
@@ -213,26 +224,22 @@
         });
     }
 
-    // Scroll Logic: Movie 1 (Right) then Movie 2 (Left-Slide)
+    // Scroll Logic
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
         const vh = window.innerHeight;
         const m1 = document.getElementById('movie1');
         const m2 = document.getElementById('movie2');
 
-        // Movie 1 (Right Side)
         if (scrollY > vh * 0.1 && scrollY <= vh * 1.5) {
             m1.style.opacity = "0.6";
         } else {
             m1.style.opacity = "0";
         }
 
-        // Movie 2 (Left Side Slide-in)
         if (scrollY > vh * 1.5 && scrollY <= vh * 3.2) {
             const progress = (scrollY - vh * 1.5) / (vh * 1.2); 
-            // נכנס משמאל (-100%) למרכז (0%)
             const moveX = Math.min(0, -100 + (progress * 100)); 
-            
             m2.style.opacity = Math.min(0.6, progress * 1.5);
             m2.style.transform = `translateX(${moveX}%)`;
             m1.style.opacity = Math.max(0, 0.6 - progress * 2);
