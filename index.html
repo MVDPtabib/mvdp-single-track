@@ -28,167 +28,89 @@
     .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-blue); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s; }
     .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent-blue); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.5; transition: transform 0.15s; }
 
-    /* --- SCROLL REVEAL ANIMATIONS (Slower by 20%) --- */
-    .reveal-on-scroll {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 1.0s cubic-bezier(0.5, 0, 0, 1); 
-    }
-    .reveal-on-scroll.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* --- HERO --- */
+    /* --- HERO SCROLL --- */
     .hero-scroll-container { height: 250vh; position: relative; }
     .sticky-frame {
         position: sticky; top: 0; height: 100vh; width: 100vw;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
         overflow: hidden; background-color: var(--bg-black);
     }
-    
-    .hero-title {
-        z-index: 10; text-align: center; pointer-events: none;
-        display: flex; flex-direction: column; align-items: center;
-        line-height: 1.2;
-    }
-    .hero-intro { font-size: 2.5vw; font-weight: 300; color: var(--text-main); letter-spacing: 1px; margin-bottom: 10px; }
-    .hero-main { font-size: 7vw; font-weight: 900; text-transform: uppercase; line-height: 0.9; margin-bottom: 15px; }
-    .location-sub { font-size: 2vw; font-weight: 700; color: var(--accent-blue); letter-spacing: 3px; text-transform: uppercase; }
+    .hero-title { z-index: 10; text-align: center; pointer-events: none; }
+    .hero-intro { font-size: 2.5vw; font-weight: 300; color: var(--text-main); letter-spacing: 1px; display: block; margin-bottom: 10px; }
+    .hero-main { font-size: 7vw; font-weight: 900; text-transform: uppercase; line-height: 0.9; display: block; margin-bottom: 15px; }
+    .location-sub { font-size: 2vw; font-weight: 700; color: var(--accent-blue); letter-spacing: 3px; text-transform: uppercase; display: block; }
 
-    .scroll-hint {
-        position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-        display: flex; flex-direction: column; align-items: center; gap: 0;
-        opacity: 0.8; z-index: 20; animation: bounce 2s infinite;
-    }
-    .scroll-hint svg { width: 50px; height: 35px; stroke: white; fill: none; stroke-width: 2; }
-    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); } 40% { transform: translate(-50%, -15px); } 60% { transform: translate(-50%, -8px); } }
-
-    .scroll-video {
-        position: absolute; top: 0; width: 50vw; height: 100vh;
-        object-fit: cover; z-index: 5; transition: opacity 0.5s ease; opacity: 0;
-    }
+    .scroll-video { position: absolute; top: 0; width: 50vw; height: 100vh; object-fit: cover; z-index: 5; transition: opacity 0.5s ease; opacity: 0; }
     #movie1 { right: 0; }
     #movie2 { left: 0; transform: translateX(-100%); transition: opacity 0.5s, transform 0.1s linear; }
 
     /* --- LAYOUT --- */
-    .bastion-layout {
-        max-width: 1400px; margin: 0 auto; padding: 100px 40px;
-        display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
-        position: relative; z-index: 20; background: var(--bg-black);
-    }
-    .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-blue); margin-bottom: 20px; display: block; }
-    .section-heading { font-size: 2.5rem; font-weight: 300; line-height: 1.1; margin-bottom: 30px; }
-    .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 80px; }
+    .bastion-layout { max-width: 1400px; margin: 0 auto; padding: 100px 40px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; }
+    .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-blue); margin-bottom: 25px; display: block; }
 
-    /* --- INTRO SUMMARY SECTION --- */
-    .intro-summary { 
-        grid-column: 1 / 13; 
-        text-align: center; 
-        padding: 60px 0; 
-        border-bottom: 1px solid var(--border-thin); 
-        margin-bottom: 80px; 
-    }
-    .welcome-label { font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-blue); font-weight: 700; margin-bottom: 15px; display: block; }
-    .intro-line-1 { font-size: 1.25rem; font-weight: 300; color: var(--text-dim); margin-bottom: 6px; letter-spacing: 0.5px; }
-    .intro-line-2 { font-size: 1.5rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; line-height: 1.2; letter-spacing: 1px; }
+    /* --- WELCOME SECTION --- */
+    .welcome-container { grid-column: 1 / 13; text-align: center; padding: 80px 0; margin-bottom: 60px; border-bottom: 1px solid var(--border-thin); }
+    .welcome-label { font-size: 0.8rem; letter-spacing: 6px; text-transform: uppercase; color: var(--accent-blue); font-weight: 900; margin-bottom: 20px; display: block; }
+    .welcome-sub { font-size: 1.3rem; font-weight: 300; color: var(--text-dim); margin-bottom: 10px; }
+    .welcome-main { font-size: 2rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; max-width: 900px; margin: 0 auto; line-height: 1.3; }
 
-    /* --- DATA SIDE --- */
-    .data-side { grid-column: 1 / 5; display: flex; flex-direction: column; gap: 35px; position: relative; }
-    .data-drawing-line {
-        position: absolute; left: -20px; top: 0; width: 2px; background: var(--accent-blue);
-        height: 0; transition: height 3.0s cubic-bezier(0.45, 0, 0.55, 1);
+    /* --- TECHNICAL SPECS SECTION --- */
+    .specs-section { 
+        grid-column: 1 / 6; 
+        position: relative; 
+        padding-left: 35px; 
+        margin-bottom: 80px;
     }
-    .data-side.is-visible .data-drawing-line { height: 100%; }
-
+    .specs-line {
+        position: absolute;
+        left: 0; top: 0;
+        width: 2px;
+        background-color: var(--accent-blue);
+        height: 0;
+        transition: height 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
     .data-row { 
-        display: flex; align-items: center; gap: 20px; text-decoration: none; color: inherit; 
-        opacity: 0; transform: translateX(-20px); transition: all 0.7s ease; 
+        display: flex; align-items: center; gap: 20px; text-decoration: none; 
+        color: white; margin-bottom: 35px;
+        opacity: 0; transform: translateY(20px);
+        transition: opacity 1.5s ease, transform 1.5s ease; 
     }
-    .data-side.is-visible .data-row:nth-child(2) { opacity: 1; transform: translateX(0); transition-delay: 0.4s; }
-    .data-side.is-visible .data-row:nth-child(3) { opacity: 1; transform: translateX(0); transition-delay: 0.9s; }
-    .data-side.is-visible .data-row:nth-child(4) { opacity: 1; transform: translateX(0); transition-delay: 1.4s; }
-    .data-side.is-visible .data-row:nth-child(5) { opacity: 1; transform: translateX(0); transition-delay: 1.9s; }
-    .data-side.is-visible .data-row:nth-child(6) { opacity: 1; transform: translateX(0); transition-delay: 2.4s; }
-    .data-side.is-visible .data-row:nth-child(7) { opacity: 1; transform: translateX(0); transition-delay: 2.9s; }
-
-    .gpx-btn { transition: all 0.3s ease; cursor: pointer; padding: 10px 0; }
-    .gpx-btn:hover { transform: translateX(10px) !important; }
-    .gpx-btn:hover svg { stroke: #fff; filter: drop-shadow(0 0 8px var(--accent-blue)); }
-    .gpx-btn:hover span { color: #fff !important; }
+    .data-row.is-visible { opacity: 1; transform: translateY(0); }
+    
+    /* Fast Hover */
+    .data-row svg { stroke: var(--accent-blue); min-width: 28px; transition: transform 0.2s ease; }
+    .data-row span { transition: color 0.2s ease; }
+    .data-row:hover { transform: translateX(10px); transition: transform 0.2s ease; }
+    .data-row:hover span { color: var(--accent-blue); }
+    .data-row:hover svg { transform: scale(1.1); }
 
     /* --- GALLERY --- */
-    .gallery-side { grid-column: 6 / 13; position: relative; }
-    .gallery-large { 
-        height: 550px; background: #151515; overflow: hidden; position: relative; border-radius: 4px;
-        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-    .gallery-large:hover { transform: scale(1.02); }
-    .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s ease-in-out; }
+    .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 80px; }
+    .gallery-side { grid-column: 7 / 13; }
+    .gallery-large { height: 550px; background: #151515; overflow: hidden; position: relative; border-radius: 4px; }
+    .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s ease; }
     .slide.active { opacity: 1; }
 
-    .gallery-controls {
-        position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between;
-        transform: translateY(-50%); z-index: 30; padding: 0 15px; box-sizing: border-box;
-        opacity: 0; transition: 0.3s; pointer-events: none;
-    }
-    .gallery-side:hover .gallery-controls { opacity: 1; pointer-events: auto; }
-    
-    .nav-btn {
-        background: rgba(255, 255, 255, 0.1); border: none; color: white; width: 45px; height: 45px;
-        border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-        backdrop-filter: blur(4px); transition: 0.3s;
-    }
-    .nav-btn:hover { background: rgba(255, 255, 255, 0.3); transform: scale(1.1); }
-    
-    .pause-btn {
-        position: absolute; bottom: 20px; right: 20px; z-index: 30;
-        background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2); 
-        color: white; padding: 6px 14px; border-radius: 20px; 
-        font-size: 0.7rem; text-transform: uppercase; cursor: pointer; letter-spacing: 1px;
-        backdrop-filter: blur(4px); opacity: 0; transition: 0.3s;
-    }
-    .gallery-side:hover .pause-btn { opacity: 1; }
-
-    /* --- ICONS --- */
+    /* --- BRAND ICONS --- */
     .round-brand-icon { 
-        width: 70px; height: 70px; border: 2px solid var(--accent-blue); 
-        border-radius: 50%; background: transparent; padding: 16px; 
-        transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        display: block; margin-bottom: 20px; color: white;
+        width: 75px; height: 75px; border: 2px solid var(--accent-blue); 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        transition: 0.3s ease; text-decoration: none; margin: 0 auto 20px;
     }
-    .round-brand-icon svg { width: 100%; height: 100%; stroke-width: 1.5; stroke: var(--text-main); fill: none; transition: 0.3s; }
-    .round-brand-icon:hover { background: var(--accent-blue); border-color: var(--accent-blue); transform: scale(1.1); box-shadow: 0 0 30px rgba(0, 123, 255, 0.4); }
-    .round-brand-icon:hover svg { stroke: white; }
-    .fill-icon { fill: var(--text-main); stroke: none !important; transition: 0.3s; }
+    .round-brand-icon svg { width: 35px; height: 35px; }
+    .round-brand-icon:hover { background: var(--accent-blue); transform: scale(1.1); }
+    .fill-icon { fill: var(--text-main); transition: 0.3s; }
     .round-brand-icon:hover .fill-icon { fill: white; }
 
-    /* --- SECTIONS --- */
-    .youtube-wrapper { grid-column: 1 / 13; display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; align-items: center; }
-    .youtube-container { grid-column: 1 / 9; height: 500px; background: #000; border-radius: 10px; overflow: hidden; }
-    .youtube-container iframe { width: 100%; height: 100%; border: none; }
-    .youtube-info { grid-column: 10 / 13; }
-
-    .strava-box { grid-column: 1 / 13; width: 100%; text-align: center; margin-bottom: 60px; }
-    .strava-embed-container { border: 1px solid var(--border-thin); border-radius: 15px; overflow: hidden; height: 450px; width: 100%; margin: 30px auto; max-width: 1000px; }
-    .strava-embed-container iframe { width: 100%; height: 100%; border: none; }
-
-    footer { grid-column: 1 / 13; border-top: 1px solid var(--border-thin); padding: 80px 0; text-align: center; width: 100%; }
+    /* --- REVEAL --- */
+    .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 1.2s ease; }
+    .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 900px) {
-        .cursor-dot, .cursor-outline { display: none; }
-        .hero-main { font-size: 13vw; }
-        .intro-line-1 { font-size: 1.1rem; }
-        .intro-line-2 { font-size: 1.3rem; }
-        .scroll-video { width: 100vw; left: 0 !important; opacity: 0.6 !important; }
-        #movie2 { display: none; }
+        .cursor-dot, .cursor-outline, .specs-line { display: none; }
         .bastion-layout { display: flex; flex-direction: column; padding: 40px 20px; }
-        .data-drawing-line { display: none; }
-        .data-row { opacity: 1; transform: none; }
-        .youtube-wrapper { display: flex; flex-direction: column; }
-        .youtube-container { width: 100%; height: 250px; order: 2; }
-        .youtube-info { order: 1; margin-bottom: 20px; }
-        .gallery-large { height: 350px; }
+        .specs-section { padding-left: 0; }
+        .welcome-main { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -204,162 +126,154 @@
             <span class="hero-main">Now it has a name</span>
             <span class="location-sub">MVDP - Rosh HaAyin</span>
           </div>
-          
-          <div class="scroll-hint">
-            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <svg viewBox="0 0 24 24" style="margin-top: -20px;"><path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-
-          <video id="movie1" class="scroll-video" autoplay muted loop playsinline poster="ga1.jpeg">
-              <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766765976/Movie1_-_Trim_rugrpu.mp4" type="video/mp4">
-          </video>
-          <video id="movie2" class="scroll-video" autoplay muted loop playsinline>
-              <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766766013/Movie_2_-_Trim_-_Trim_-_Trim_z0kmot.mp4" type="video/mp4">
-          </video>
+          <video id="movie1" class="scroll-video" autoplay muted loop playsinline><source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766765976/Movie1_-_Trim_rugrpu.mp4" type="video/mp4"></video>
+          <video id="movie2" class="scroll-video" autoplay muted loop playsinline><source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766766013/Movie_2_-_Trim_-_Trim_-_Trim_z0kmot.mp4" type="video/mp4"></video>
       </div>
   </div>
 
   <main class="bastion-layout">
       
-      <section class="intro-summary reveal-on-scroll">
+      <section class="welcome-container reveal-on-scroll">
           <span class="welcome-label">Welcome</span>
-          <div class="intro-line-1">
-              Track named after Mathieu van der Poel, located in Rosh HaAyin
+          <p class="welcome-sub">Track named after Mathieu van der Poel, located in Rosh HaAyin</p>
+          <h2 class="welcome-main">BORN FROM LOVE FOR THE FOREST AND HUNGER FOR THE PERFECT LAP</h2>
+      </section>
+
+      <section class="specs-section" id="specsTrigger">
+          <div class="specs-line" id="drawingLine"></div>
+          <div class="label">Technical Specs</div>
+
+          <div class="data-row" style="transition-delay: 0.2s;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/></svg>
+              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">TECHNICAL XC</span><span style="font-size: 0.7rem; color: var(--text-dim);">STYLE</span></div>
           </div>
-          <div class="intro-line-2">
-              Born from love for the forest and hunger for the perfect lap
+
+          <a href="https://maps.google.com" target="_blank" class="data-row" style="transition-delay: 0.5s;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22V15"/></svg>
+              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">STARTING POINT</span><span style="font-size: 0.7rem; color: var(--text-dim);">OPEN IN GOOGLE MAPS</span></div>
+          </a>
+
+          <div class="data-row" style="transition-delay: 0.8s;">
+               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M2 12h20M2 12l6-6M2 12l6 6"/></svg>
+              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">3.1<small style="font-size: 0.9rem;">km</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">DISTANCE</span></div>
+          </div>
+
+          <div class="data-row" style="transition-delay: 1.1s;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
+              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">98<small style="font-size: 0.9rem;">m</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">ELEVATION</span></div>
+          </div>
+
+          <a href="https://waze.com/ul/hsv8yeezgr" target="_blank" class="data-row" style="transition-delay: 1.4s;">
+               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">WAZE LOCATION</span><span style="font-size: 0.7rem; color: var(--text-dim);">NAVIGATE TO TRAIL</span></div>
+          </a>
+
+          <a href="https://waze.com/ul/hsv8yeezgr" target="_blank" class="data-row" style="transition-delay: 1.7s;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
+              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">PARKING AREA</span><span style="font-size: 0.7rem; color: var(--text-dim);">ROSH HAAYIN FOREST</span></div>
+          </a>
+
+          <a href="activity_21303441846 (1).gpx" download class="data-row" style="transition-delay: 2.0s;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">GPX DATA</span><span style="font-size: 0.7rem; color: var(--text-dim);">DOWNLOAD TRACK FILE</span></div>
+          </a>
+      </section>
+
+      <section class="grid-item gallery-side reveal-on-scroll">
+          <div class="label">Gallery</div>
+          <div class="gallery-large">
+              <img src="ga1.jpeg" class="slide active"><img src="ga2.jpeg" class="slide"><img src="ga3.jpeg" class="slide">
           </div>
       </section>
 
-      <div class="grid-item data-side reveal-on-scroll">
-          <div class="data-drawing-line"></div>
-          <div class="data-row"><span class="label" style="margin:0;">The Environment</span></div>
-
-          <div class="data-row">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/>
-              </svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">TECHNICAL XC</span><span style="font-size: 0.7rem; color: var(--text-dim);">FAST & TECHNICAL CROSS-COUNTRY FLOW</span></div>
+      <section class="grid-item reveal-on-scroll" style="grid-column: 1/13; display: flex; align-items: center; gap: 40px;">
+          <div style="flex: 2; height: 500px; background: #000; border-radius: 10px; overflow: hidden;">
+              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/JHL76AN1cAM" frameborder="0" allowfullscreen></iframe>
           </div>
-
-          <div class="data-row">
-               <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M2 12l6-6M2 12l6 6"/></svg>
-              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">3.1<small style="font-size: 0.9rem; color:var(--accent-blue)">km</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">DISTANCE</span></div>
-          </div>
-
-          <div class="data-row">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
-              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">98<small style="font-size: 0.9rem; color:var(--accent-blue)">m</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">ELEVATION</span></div>
-          </div>
-
-          <div class="data-row">
-               <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">HOW TO GET THERE</span><span style="font-size: 0.7rem; color: var(--text-dim);">ROSH HAAYIN FOREST</span></div>
-          </div>
-
-          <div class="data-row">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7zM9 4v13M15 7v13"/></svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">TRAIL MARKING</span><span style="font-size: 0.7rem; color: var(--text-dim);">FOLLOW THE BLUE TRAIL ARROWS</span></div>
-          </div>
-
-          <a href="MVDP Single-Track.gpx" download class="data-row gpx-btn">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block; color: var(--accent-blue);">GPX DATA</span><span style="font-size: 0.7rem; color: var(--text-dim);">DOWNLOAD TRACK</span></div>
-          </a>
-      </div>
-
-      <div class="grid-item gallery-side reveal-on-scroll">
-          <div style="text-align: center; margin-bottom: 20px;"><span class="label">Gallery</span></div>
-          <div class="gallery-large">
-              <img src="ga1.jpeg" class="slide active">
-              <img src="ga2.jpeg" class="slide">
-              <img src="ga3.jpeg" class="slide">
-              <div class="gallery-controls">
-                  <button class="nav-btn" onclick="prevSlide()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-                  <button class="nav-btn" onclick="nextSlide()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-              </div>
-              <button class="pause-btn" id="playPause">Pause</button>
-          </div>
-      </div>
-
-      <div class="grid-item youtube-wrapper reveal-on-scroll">
-          <div class="youtube-container"><iframe src="https://www.youtube.com/embed/JHL76AN1cAM" allowfullscreen></iframe></div>
-          <div class="youtube-info">
+          <div style="flex: 1; text-align: center;">
               <a href="https://www.youtube.com/watch?v=JHL76AN1cAM" target="_blank" class="round-brand-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="4" ry="4" class="fill-icon" /><polygon points="10 9 15 12 10 15 10 9" fill="black" stroke="none" /></svg>
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.872.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" class="fill-icon"/></svg>
               </a>
               <span class="label">Visual Journey</span>
-              <h2 class="section-heading">Watch the Flow</h2>
+              <h2 style="font-size: 2rem; font-weight: 300;">Watch the Flow</h2>
           </div>
-      </div>
+      </section>
 
-      <div class="grid-item strava-box reveal-on-scroll">
-          <a href="https://www.strava.com/segments/40662774" target="_blank" class="round-brand-icon" style="margin: 0 auto 20px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169" class="fill-icon"/></svg>
+      <section class="grid-item reveal-on-scroll" style="grid-column: 1/13; text-align: center;">
+          <a href="https://www.strava.com/segments/40662774" target="_blank" class="round-brand-icon">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169" class="fill-icon"/></svg>
           </a>
-          <span class="label">Performance</span>
-          <h2 class="section-heading">Segment Data</h2>
-          <div class="strava-embed-container"><iframe src="https://www.strava.com/segments/40662774/embed"></iframe></div>
-      </div>
+          <h2 style="font-size: 2rem; font-weight: 300; margin-bottom: 30px;">Strava Segment</h2>
+          <div style="border: 1px solid var(--border-thin); border-radius: 15px; overflow: hidden; height: 450px;">
+              <iframe height='450' width='100%' frameborder='0' src='https://www.strava.com/segments/40662774/embed'></iframe>
+          </div>
+      </section>
 
-      <footer class="reveal-on-scroll">
-          <a href="mailto:van.der0nothing@gmail.com" class="round-brand-icon" style="margin: 0 auto 20px;">
-             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <footer class="reveal-on-scroll" style="grid-column: 1/13; text-align: center; padding: 100px 0; border-top: 1px solid var(--border-thin);">
+          <a href="mailto:van.der0nothing@gmail.com" class="round-brand-icon">
+             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           </a>
-          <p style="font-size: 1.2rem;">van.der0nothing@gmail.com</p>
-          <p style="color: var(--accent-blue); margin-top: 30px; font-weight: 700; letter-spacing: 2px;">KEEP THE FOREST CLEAN.</p>
-          <div class="legal-disclaimer" style="color: #555; font-size: 0.75rem; margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.5;">
-            Riding is at own responsibility. Always wear a helmet and respect the nature.
+          <p>van.der0nothing@gmail.com</p>
+          <p style="color: var(--accent-blue); font-weight: 700; margin-top: 20px;">KEEP THE FOREST CLEAN</p>
+          <div style="color: #555; font-size: 0.75rem; margin-top: 30px; line-height: 1.6;">
+            Riding is at the rider's own risk. The site creators assume no responsibility.<br>
+            Respect the forest and always ride with a helmet.
           </div>
       </footer>
   </main>
 
   <script>
-    const dot = document.querySelector('.cursor-dot');
-    const outline = document.querySelector('.cursor-outline');
-    
-    if (window.innerWidth > 900) {
-        window.addEventListener('mousemove', (e) => {
-            dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-            outline.animate({ left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px' }, { duration: 500, fill: "forwards" });
+    // Cursor
+    const dot = document.querySelector('.cursor-dot'), outline = document.querySelector('.cursor-outline');
+    window.addEventListener('mousemove', (e) => {
+        dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
+        outline.animate({ left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px' }, { duration: 500, fill: "forwards" });
+    });
+
+    // Specs Animation
+    const drawingLine = document.getElementById('drawingLine');
+    const specsRows = document.querySelectorAll('.specs-section .data-row');
+    const specsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                drawingLine.style.height = '100%';
+                specsRows.forEach(row => row.classList.add('is-visible'));
+            }
         });
-    }
+    }, { threshold: 0.25 });
+    specsObserver.observe(document.getElementById('specsTrigger'));
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-    document.querySelectorAll('.data-side').forEach(el => observer.observe(el));
-
+    // Video Scroll Logic
     window.addEventListener('scroll', () => {
-        const isMobile = window.innerWidth <= 900;
         const scrollY = window.scrollY, vh = window.innerHeight;
         const m1 = document.getElementById('movie1'), m2 = document.getElementById('movie2');
-        if (isMobile) { m1.style.opacity = "0.6"; return; }
+        if (window.innerWidth < 900) return;
         if (scrollY < vh * 0.8) {
-            m1.style.opacity = Math.min(0.6, scrollY / (vh * 0.5)); m1.style.transform = "translateX(0)"; m2.style.opacity = "0";
-        } else if (scrollY < vh * 1.8) {
+            m1.style.opacity = Math.min(0.6, scrollY / (vh * 0.5)); m2.style.opacity = "0";
+        } else {
             m1.style.opacity = Math.max(0, 0.6 - (scrollY - vh * 0.8) / (vh * 0.4));
             const progress = (scrollY - vh * 0.8) / (vh * 0.8);
-            m2.style.opacity = Math.min(0.6, progress * 1.5); m2.style.transform = `translateX(${Math.min(0, -100 + (progress * 100))}%)`;
-        } else {
-            m1.style.opacity = "0"; m2.style.opacity = "0.6"; m2.style.transform = "translateX(0)";
+            m2.style.opacity = Math.min(0.6, progress * 1.5);
+            m2.style.transform = `translateX(${Math.min(0, -100 + (progress * 100))}%)`;
         }
     });
 
+    // General Reveal Observer
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+    // Gallery
     const slides = document.querySelectorAll('.slide');
-    let current = 0, isPaused = false, slideInterval = setInterval(nextSlide, 4000);
-    function showSlide(index) {
-        slides[current].classList.remove('active'); current = (index + slides.length) % slides.length; slides[current].classList.add('active');
+    let current = 0;
+    if(slides.length > 0) {
+        setInterval(() => {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }, 4000);
     }
-    function nextSlide() { showSlide(current + 1); }
-    function prevSlide() { showSlide(current - 1); }
-    document.getElementById('playPause').addEventListener('click', function() {
-        if (isPaused) { slideInterval = setInterval(nextSlide, 4000); this.textContent = 'Pause'; }
-        else { clearInterval(slideInterval); this.textContent = 'Play'; }
-        isPaused = !isPaused;
-    });
   </script>
 </body>
 </html>
