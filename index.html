@@ -10,7 +10,7 @@
         --bg-black: #0b0b0b;
         --text-main: #e5e5e5;
         --text-dim: #a1a1a1;
-        --accent-orange: #ff6600;
+        --accent-blue: #007bff; /* שינוי מכתום לכחול */
         --border-thin: rgba(255, 255, 255, 0.1);
     }
 
@@ -24,9 +24,9 @@
       overflow-x: hidden;
     }
 
-    /* --- CURSOR --- */
-    .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-orange); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; }
-    .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent-orange); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.5; }
+    /* --- CURSOR (BLUE) --- */
+    .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-blue); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; }
+    .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent-blue); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.5; }
 
     /* --- HERO --- */
     .hero-scroll-container { height: 250vh; position: relative; }
@@ -39,7 +39,7 @@
         font-size: 9vw; font-weight: 900; text-transform: uppercase;
         z-index: 10; text-align: center; line-height: 1; pointer-events: none;
     }
-    .location-sub { display: block; font-size: 3vw; font-weight: 300; color: var(--accent-orange); letter-spacing: 4px; margin-top: 15px; }
+    .location-sub { display: block; font-size: 3vw; font-weight: 300; color: var(--accent-blue); letter-spacing: 4px; margin-top: 15px; }
 
     .scroll-hint {
         position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
@@ -62,37 +62,66 @@
         display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
         position: relative; z-index: 20; background: var(--bg-black);
     }
-    .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-orange); margin-bottom: 20px; display: block; }
+    .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-blue); margin-bottom: 20px; display: block; }
     .section-heading { font-size: 2.5rem; font-weight: 300; line-height: 1.1; margin-bottom: 30px; }
     .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 80px; }
 
     .intro-summary { grid-column: 1 / 13; text-align: center; padding: 120px 0; border-bottom: 1px solid var(--border-thin); margin-bottom: 80px; }
     .intro-summary .description-text { max-width: 800px; margin: 0 auto; line-height: 1.6; font-size: 1.4rem; color: var(--text-main); }
+    .welcome-text { color: var(--accent-blue) !important; }
 
-    .data-side { grid-column: 1 / 5; display: flex; flex-direction: column; gap: 30px; }
-    .gallery-side { grid-column: 6 / 13; }
-    .gallery-large { height: 550px; background: #151515; overflow: hidden; position: relative; border-radius: 4px; }
-    .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s; }
+    /* --- GALLERY WITH ZOOM & CONTROLS --- */
+    .gallery-side { grid-column: 6 / 13; position: relative; }
+    .gallery-large { 
+        height: 550px; background: #151515; overflow: hidden; position: relative; border-radius: 4px;
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .gallery-large:hover { transform: scale(1.02); }
+    .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s ease-in-out; }
     .slide.active { opacity: 1; }
 
+    .gallery-controls {
+        position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between;
+        transform: translateY(-50%); z-index: 30; padding: 0 15px; box-sizing: border-box;
+        opacity: 0; transition: 0.3s; pointer-events: none;
+    }
+    .gallery-side:hover .gallery-controls { opacity: 1; pointer-events: auto; }
+    .nav-btn {
+        background: rgba(255, 255, 255, 0.15); border: none; color: white; width: 40px; height: 40px;
+        border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(5px); transition: 0.3s;
+    }
+    .nav-btn:hover { background: rgba(255, 255, 255, 0.4); }
+    .pause-btn {
+        position: absolute; bottom: 20px; right: 20px; z-index: 30;
+        background: rgba(255, 255, 255, 0.15); border: none; color: white; padding: 8px 15px;
+        border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; cursor: pointer;
+        backdrop-filter: blur(5px); opacity: 0; transition: 0.3s;
+    }
+    .gallery-side:hover .pause-btn { opacity: 1; }
+
+    /* --- DATA SECTION --- */
+    .data-side { grid-column: 1 / 5; display: flex; flex-direction: column; gap: 30px; }
     .data-row { display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit; }
     .gpx-btn { transition: all 0.3s ease; cursor: pointer; }
     .gpx-btn:hover { transform: translateX(10px); }
-    .gpx-btn:hover svg { stroke: #fff; filter: drop-shadow(0 0 8px var(--accent-orange)); }
+    .gpx-btn:hover svg { stroke: #fff; filter: drop-shadow(0 0 8px var(--accent-blue)); }
     .gpx-btn:hover span { color: #fff !important; }
+
+    /* --- ICONS & HOVER EFFECTS --- */
+    .round-brand-icon { 
+        width: 60px; height: 60px; border: 2px solid var(--accent-blue); 
+        border-radius: 50%; background: white; padding: 8px; 
+        transition: 0.4s ease; 
+        overflow: hidden; object-fit: contain; display: block; margin-bottom: 20px;
+    }
+    .round-brand-icon:hover { opacity: 0.7; transform: scale(1.05); filter: brightness(1.1); }
 
     /* --- YOUTUBE SECTION --- */
     .youtube-wrapper { grid-column: 1 / 13; display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; align-items: center; }
     .youtube-container { grid-column: 1 / 9; height: 500px; background: #000; border-radius: 10px; overflow: hidden; }
     .youtube-container iframe { width: 100%; height: 100%; border: none; }
     .youtube-info { grid-column: 10 / 13; }
-
-    .round-brand-icon { 
-        width: 60px; height: 60px; border: 2px solid var(--accent-orange); 
-        border-radius: 50%; background: white; padding: 8px; 
-        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        overflow: hidden; object-fit: contain; display: block; margin-bottom: 20px;
-    }
 
     /* --- STRAVA SECTION --- */
     .strava-box { grid-column: 1 / 13; width: 100%; text-align: center; margin-bottom: 60px; }
@@ -108,17 +137,16 @@
         .location-sub { font-size: 6vw; }
         .scroll-video { width: 100vw; left: 0 !important; right: auto !important; opacity: 0.6 !important; }
         #movie2 { display: none; }
-        .scroll-hint svg { width: 40px; height: 30px; }
         .bastion-layout { display: flex; flex-direction: column; padding: 40px 20px; }
-        .data-side, .gallery-side { width: 100%; }
         
-        /* תיקון יוטיוב מובייל - כותרת מלאה מעל הסרטון */
+        /* תיקון מובייל יוטיוב - כותרת מלאה ואז סרטון מלא */
         .youtube-wrapper { display: flex; flex-direction: column; width: 100%; }
-        .youtube-info { order: 1; width: 100%; text-align: center; margin-bottom: 30px; }
+        .youtube-info { width: 100%; text-align: center; margin-bottom: 30px; order: 1; }
         .youtube-info .round-brand-icon { margin: 0 auto 15px; }
-        .youtube-container { order: 2; width: 100%; height: 300px; }
+        .youtube-container { width: 100%; height: 250px; order: 2; }
         
         .gallery-large { height: 350px; }
+        .gallery-controls { opacity: 1; pointer-events: auto; }
     }
   </style>
 </head>
@@ -148,7 +176,7 @@
   <main class="bastion-layout">
       
       <section class="intro-summary">
-          <h2 class="section-heading" style="font-size: 4rem;">Welcome</h2>
+          <h2 class="section-heading welcome-text" style="font-size: 4rem;">Welcome</h2>
           <p class="description-text">Track named after Mathieu van der Poel, located in Rosh HaAyin forest.</p>
       </section>
 
@@ -157,7 +185,7 @@
           <h2 class="section-heading">Born in the forest.<br>Built for speed.</h2>
           
           <div class="data-row">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/></svg>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/></svg>
               <div>
                   <span style="font-size: 1.1rem; font-weight: 700; display: block;">TECHNICAL XC</span>
                   <span style="font-size: 0.7rem; color: var(--text-dim);">FAST & TECHNICAL CROSS-COUNTRY FLOW</span>
@@ -165,23 +193,23 @@
           </div>
 
           <div class="data-row">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17.8 20 14.1 20 10a8 8 0 1 0-16 0c0 4.1 2.7 17.8 8 11.7z"/></svg>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17.8 20 14.1 20 10a8 8 0 1 0-16 0c0 4.1 2.7 17.8 8 11.7z"/></svg>
               <div>
-                  <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">3.1<small style="font-size: 0.9rem; color:var(--accent-orange)">km</small></span>
+                  <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">3.1<small style="font-size: 0.9rem; color:var(--accent-blue)">km</small></span>
                   <span style="font-size: 0.7rem; color: var(--text-dim);">DISTANCE</span>
               </div>
           </div>
 
           <div class="data-row">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
               <div>
-                  <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">98<small style="font-size: 0.9rem; color:var(--accent-orange)">m</small></span>
+                  <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">98<small style="font-size: 0.9rem; color:var(--accent-blue)">m</small></span>
                   <span style="font-size: 0.7rem; color: var(--text-dim);">ELEVATION</span>
               </div>
           </div>
 
           <div class="data-row">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7zM9 4v13M15 7v13"/></svg>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7zM9 4v13M15 7v13"/></svg>
               <div>
                   <span style="font-size: 1.1rem; font-weight: 700; display: block;">TRAIL MARKING</span>
                   <span style="font-size: 0.7rem; color: var(--text-dim);">FOLLOW THE BLUE TRAIL ARROWS</span>
@@ -189,9 +217,9 @@
           </div>
 
           <a href="MVDP Single-Track.gpx" download class="data-row gpx-btn">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
               <div>
-                  <span style="font-size: 1.1rem; font-weight: 700; display: block; color: var(--accent-orange);">GPX DATA</span>
+                  <span style="font-size: 1.1rem; font-weight: 700; display: block; color: var(--accent-blue);">GPX DATA</span>
                   <span style="font-size: 0.7rem; color: var(--text-dim);">DOWNLOAD TRACK</span>
               </div>
           </a>
@@ -203,6 +231,11 @@
               <img src="ga1.jpeg" class="slide active">
               <img src="ga2.jpeg" class="slide">
               <img src="ga3.jpeg" class="slide">
+              <div class="gallery-controls">
+                  <button class="nav-btn" onclick="prevSlide()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+                  <button class="nav-btn" onclick="nextSlide()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+              </div>
+              <button class="pause-btn" id="playPause">Pause</button>
           </div>
       </div>
 
@@ -233,7 +266,7 @@
       <footer>
           <a href="mailto:van.der0nothing@gmail.com"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" class="round-brand-icon" style="margin: 0 auto 20px;"></a>
           <p style="font-size: 1.2rem;">van.der0nothing@gmail.com</p>
-          <p style="color: var(--accent-orange); margin-top: 30px; font-weight: 700; letter-spacing: 2px;">KEEP THE FOREST CLEAN.</p>
+          <p style="color: var(--accent-blue); margin-top: 30px; font-weight: 700; letter-spacing: 2px;">KEEP THE FOREST CLEAN.</p>
           <div class="legal-disclaimer" style="color: #555; font-size: 0.75rem; margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.5;">
             Riding is at own responsibility. Always wear a helmet and respect the nature.
           </div>
@@ -282,15 +315,31 @@
         }
     });
 
+    // Gallery Logic
     const slides = document.querySelectorAll('.slide');
     let current = 0;
-    setInterval(() => {
-        if(slides.length > 0) {
-            slides[current].classList.remove('active');
-            current = (current + 1) % slides.length;
-            slides[current].classList.add('active');
+    let isPaused = false;
+    let slideInterval = setInterval(nextSlide, 4000);
+
+    function showSlide(index) {
+        slides[current].classList.remove('active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    document.getElementById('playPause').addEventListener('click', function() {
+        if (isPaused) {
+            slideInterval = setInterval(nextSlide, 4000);
+            this.textContent = 'Pause';
+        } else {
+            clearInterval(slideInterval);
+            this.textContent = 'Play';
         }
-    }, 4000);
+        isPaused = !isPaused;
+    });
   </script>
 </body>
 </html>
