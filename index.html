@@ -47,26 +47,46 @@
     #movie1 { right: 0; }
     #movie2 { left: 0; transform: translateX(-100%); filter: blur(5px); }
 
-    /* --- SCROLL ARROWS --- */
-    .scroll-arrows {
-        position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-        display: flex; flex-direction: column; align-items: center; z-index: 20; opacity: 0; transition: opacity 0.5s ease;
+    /* --- HERO SCROLL ARROWS --- */
+    .hero-arrows {
+        position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+        display: flex; flex-direction: column; align-items: center; z-index: 20;
+        opacity: 1; transition: opacity 0.5s ease;
     }
-    .scroll-arrows.visible { opacity: 1; }
-    .scroll-arrows span {
+    .hero-arrows span {
         display: block; width: 20px; height: 20px; border-bottom: 2px solid var(--accent-blue); border-right: 2px solid var(--accent-blue);
-        transform: rotate(45deg); margin: -5px; animation: scrollAnim 2s infinite;
+        transform: rotate(45deg); margin: -5px; animation: heroArrowAnim 2s infinite;
     }
-    .scroll-arrows span:nth-child(2) { animation-delay: 0.2s; }
-    .scroll-arrows span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes scrollAnim {
+    .hero-arrows span:nth-child(2) { animation-delay: 0.2s; }
+    .hero-arrows span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes heroArrowAnim {
         0% { opacity: 0; transform: rotate(45deg) translate(-10px, -10px); }
         50% { opacity: 1; }
         100% { opacity: 0; transform: rotate(45deg) translate(10px, 10px); }
     }
 
+    /* --- SIDE SCROLL INDICATOR (NEW) --- */
+    .side-scroll-guide {
+        position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+        display: flex; flex-direction: column; align-items: center; gap: 15px;
+        opacity: 0; transition: opacity 1s ease; pointer-events: none; z-index: 100;
+    }
+    .side-scroll-guide.visible { opacity: 1; }
+    .side-text {
+        writing-mode: vertical-rl; text-orientation: mixed; color: var(--text-dim);
+        font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+    }
+    .side-arrow-icon {
+        width: 15px; height: 15px; border-bottom: 1px solid var(--accent-blue); border-right: 1px solid var(--accent-blue);
+        transform: rotate(45deg); animation: sidePulse 2s infinite;
+    }
+    @keyframes sidePulse {
+        0%, 100% { transform: rotate(45deg) scale(1); opacity: 0.5; }
+        50% { transform: rotate(45deg) scale(1.2); opacity: 1; }
+    }
+
     /* --- LAYOUT --- */
-    .bastion-layout { max-width: 1400px; margin: 0 auto; padding: 100px 40px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; }
+    .bastion-layout { max-width: 1400px; margin: 0 auto; padding: 100px 40px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; position: relative; z-index: 30; background: var(--bg-black); }
     .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-blue); margin-bottom: 25px; display: block; }
 
     /* --- WELCOME WAVE --- */
@@ -76,13 +96,23 @@
     .char { display: inline-block; transform: translateY(100%); opacity: 0; transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.5s; }
     .welcome-main.is-visible .char { transform: translateY(0); opacity: 1; }
 
-    /* --- SPECS (SYNCED) --- */
+    /* --- SPECS (HOVER & SYNC) --- */
     .specs-section { grid-column: 1 / 6; position: relative; padding-left: 35px; margin-bottom: 80px; }
     .specs-line { position: absolute; left: 0; top: 0; width: 2px; background-color: var(--accent-blue); height: 0; transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
-    .data-row { display: flex; align-items: center; gap: 20px; text-decoration: none; color: white; margin-bottom: 35px; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    
+    .data-row { display: flex; align-items: center; gap: 20px; text-decoration: none; color: white; margin-bottom: 35px; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.3s ease; }
     .data-row.is-visible { opacity: 1; transform: translateY(0); }
-    .data-row svg { stroke: var(--accent-blue); min-width: 28px; transition: 0.2s ease; }
+    
+    /* Updated Hover Effects */
+    .data-row svg { stroke: var(--accent-blue); min-width: 28px; transition: stroke 0.3s ease; }
+    .spec-content { transition: transform 0.3s ease; }
+    .spec-title { font-size: 1.1rem; font-weight: 700; display: block; transition: color 0.3s ease; }
+    .spec-big-num { font-size: 1.8rem; font-weight: 700; display: block; line-height: 1; transition: color 0.3s ease; }
+    
     .data-row:hover { transform: translateX(10px); }
+    .data-row:hover .spec-title, 
+    .data-row:hover .spec-big-num { color: var(--accent-blue); transform: scale(1.02); transform-origin: left; }
+    .data-row:hover svg { stroke: #fff; filter: drop-shadow(0 0 5px var(--accent-blue)); }
 
     /* --- GALLERY --- */
     .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 80px; }
@@ -107,7 +137,7 @@
     .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 900px) {
-        .cursor-dot, .cursor-outline, .specs-line { display: none; }
+        .cursor-dot, .cursor-outline, .specs-line, .side-scroll-guide { display: none; }
         .bastion-layout { display: flex; flex-direction: column; padding: 40px 20px; }
         .specs-section { padding-left: 0; }
         .welcome-main { font-size: 1.4rem; }
@@ -127,7 +157,7 @@
             <span class="location-sub" id="h3">MVDP - Rosh HaAyin</span>
           </div>
           
-          <div class="scroll-arrows" id="scrollArrows">
+          <div class="hero-arrows" id="heroArrows">
               <span></span><span></span><span></span>
           </div>
 
@@ -136,7 +166,13 @@
       </div>
   </div>
 
-  <main class="bastion-layout">
+  <div class="side-scroll-guide" id="sideGuide">
+      <div class="side-text">Scroll For More</div>
+      <div class="side-arrow-icon"></div>
+      <div class="side-arrow-icon" style="animation-delay: 0.2s;"></div>
+  </div>
+
+  <main class="bastion-layout" id="mainContent">
       <section class="welcome-container reveal-on-scroll">
           <span class="welcome-label">Welcome</span>
           <p style="color: var(--text-dim); margin-bottom: 10px;">Track named after Mathieu van der Poel, located in Rosh HaAyin</p>
@@ -146,29 +182,40 @@
       <section class="specs-section" id="specsTrigger">
           <div class="specs-line" id="drawingLine"></div>
           <div class="label">Technical Specs</div>
+          
           <div class="data-row" style="transition-delay: 0.1s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/></svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">TECHNICAL XC</span><span style="font-size: 0.7rem; color: var(--text-dim);">MEDIUM LEVEL</span></div>
+              <div class="spec-content"><span class="spec-title">TECHNICAL XC</span><span style="font-size: 0.7rem; color: var(--text-dim);">MEDIUM LEVEL</span></div>
           </div>
+          
           <a href="https://maps.google.com" target="_blank" class="data-row" style="transition-delay: 0.3s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22V15"/></svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">STARTING POINT</span><span style="font-size: 0.7rem; color: var(--text-dim);">OPEN IN GOOGLE MAPS</span></div>
+              <div class="spec-content"><span class="spec-title">STARTING POINT</span><span style="font-size: 0.7rem; color: var(--text-dim);">OPEN IN GOOGLE MAPS</span></div>
           </a>
+          
           <div class="data-row" style="transition-delay: 0.5s;">
                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M2 12h20M2 12l6-6M2 12l6 6"/></svg>
-              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;"><span class="count-up" data-target="3.1">0</span><small style="font-size: 0.9rem;">km</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">DISTANCE</span></div>
+              <div class="spec-content"><span class="spec-big-num"><span class="count-up" data-target="3.1">0</span><small style="font-size: 0.9rem;">km</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">DISTANCE</span></div>
           </div>
+          
           <div class="data-row" style="transition-delay: 0.7s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
-              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;"><span class="count-up" data-target="98">0</span><small style="font-size: 0.9rem;">m</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">ELEVATION</span></div>
+              <div class="spec-content"><span class="spec-big-num"><span class="count-up" data-target="98">0</span><small style="font-size: 0.9rem;">m</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">ELEVATION</span></div>
           </div>
+          
           <a href="https://waze.com/ul/hsv8yeezgr" target="_blank" class="data-row" style="transition-delay: 0.9s;">
-               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">WAZE LOCATION</span><span style="font-size: 0.7rem; color: var(--text-dim);">NAVIGATE TO TRAIL</span></div>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
+              <div class="spec-content"><span class="spec-title">PARKING AREA</span><span style="font-size: 0.7rem; color: var(--text-dim);">ROSH HAAYIN FOREST</span></div>
           </a>
-          <a href="activity_21303441846 (1).gpx" download class="data-row" style="transition-delay: 1.1s;">
+
+          <a href="https://waze.com/ul/hsv8yeezgr" target="_blank" class="data-row" style="transition-delay: 1.1s;">
+               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div class="spec-content"><span class="spec-title">WAZE LOCATION</span><span style="font-size: 0.7rem; color: var(--text-dim);">NAVIGATE TO TRAIL</span></div>
+          </a>
+          
+          <a href="activity_21303441846 (1).gpx" download class="data-row" style="transition-delay: 1.3s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">GPX DATA</span><span style="font-size: 0.7rem; color: var(--text-dim);">DOWNLOAD TRACK FILE</span></div>
+              <div class="spec-content"><span class="spec-title">GPX DATA</span><span style="font-size: 0.7rem; color: var(--text-dim);">DOWNLOAD TRACK FILE</span></div>
           </a>
       </section>
 
@@ -243,18 +290,21 @@
     }
 
     let countersDone = false;
+    const sideGuide = document.getElementById('sideGuide');
+
     const obs = new IntersectionObserver(entries => {
         entries.forEach(en => {
             if (en.isIntersecting) {
                 en.target.classList.add('is-visible');
                 if (en.target.id === 'specsTrigger') {
-                    // Sync Line and Data Rows
                     document.getElementById('drawingLine').style.height = '100%';
                     document.querySelectorAll('#specsTrigger .data-row').forEach(row => row.classList.add('is-visible'));
                     if (!countersDone) {
                         document.querySelectorAll('.count-up').forEach(c => countUp(c, 0, parseFloat(c.dataset.target), 2000));
                         countersDone = true;
                     }
+                    // Show Side Guide when we hit content
+                    sideGuide.classList.add('visible');
                 }
                 if (en.target.classList.contains('welcome-container')) {
                     document.querySelectorAll('.char').forEach((c, i) => { c.style.transitionDelay = `${i * 0.03}s`; });
@@ -262,7 +312,7 @@
                 }
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-on-scroll, .specs-section').forEach(el => obs.observe(el));
 
     const lightbox = GLightbox({ selector: '.glightbox' });
@@ -274,21 +324,20 @@
         galleryLinks[curIdx].classList.add('active');
     }, 4000);
 
-    // Initial load reveals
-    window.onload = () => { 
-        document.getElementById('h1').classList.add('revealed'); 
-        document.getElementById('scrollArrows').classList.add('visible');
-    };
+    window.onload = () => { document.getElementById('h1').classList.add('revealed'); };
 
     window.addEventListener('scroll', () => {
         const y = window.scrollY, vh = window.innerHeight;
         const h2 = document.getElementById('h2'), h3 = document.getElementById('h3');
         const m1 = document.getElementById('movie1'), m2 = document.getElementById('movie2');
-        const arrows = document.getElementById('scrollArrows');
+        const heroArrows = document.getElementById('heroArrows');
 
-        // Hide arrows when scrolling starts
-        if (y > 50) arrows.classList.remove('visible');
-        else arrows.classList.add('visible');
+        // Logic for Hero Arrows: Hide only when content really starts
+        if (y > vh * 2.5) {
+             heroArrows.style.opacity = '0';
+        } else {
+             heroArrows.style.opacity = '1';
+        }
 
         if (window.innerWidth < 900) return;
 
